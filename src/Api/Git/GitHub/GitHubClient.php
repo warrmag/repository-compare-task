@@ -53,10 +53,17 @@ class GitHubClient extends AbstractGitClient implements GitClientInterface
         ];
         $pullRequests['open'] = $this->getArrayResponse(self::SEARCH_PART . '/' . self::ISSUE_PART, $options);
 
+        $options['query']['q'] = 'repo:' . $name . ' type:pr state:closed';
+        $pullRequests['closed'] = $this->getArrayResponse(self::SEARCH_PART . '/' . self::ISSUE_PART, $options);
+
         $options['query']['q'] = 'repo:' . $name . ' type:pr';
         $pullRequests['total'] = $this->getArrayResponse(self::SEARCH_PART . '/' . self::ISSUE_PART, $options);
 
-        return new PullRequestData($pullRequests['open']['total_count'], $pullRequests['total']['total_count']);
+        return new PullRequestData(
+            $pullRequests['open']['total_count'],
+            $pullRequests['closed']['total_count'],
+            $pullRequests['total']['total_count']
+        );
     }
 
     /**

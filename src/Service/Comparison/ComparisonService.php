@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Comparision;
+namespace App\Service\Comparison;
 
 use App\Api\Git\GitClientInterface;
-use App\DTO\ComparisionData;
+use App\DTO\ComparisonData;
 use Symfony\Component\HttpClient\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
-class ComparisionService implements ComparisionServiceInterface
+class ComparisonService implements ComparisonServiceInterface
 {
     const MINIMAL_COMPARISION_ITEMS = 2;
 
@@ -27,7 +27,7 @@ class ComparisionService implements ComparisionServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function create(ComparisionData $comparisionData): array
+    public function create(ComparisonData $comparisionData): array
     {
         if (count($comparisionData->repositoryList()) < self::MINIMAL_COMPARISION_ITEMS) {
             throw new InvalidArgumentException(

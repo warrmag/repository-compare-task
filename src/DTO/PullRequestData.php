@@ -6,19 +6,24 @@ namespace App\DTO;
 class PullRequestData
 {
     /** @var int */
-    private $openPullRequests;
+    private $open;
 
     /** @var int */
-    private $totalPullRequests;
+    private $closed;
+
+    /** @var int */
+    private $total;
 
     /**
      * PullRequestData constructor.
-     * @param int $openPullRequests
-     * @param int $totalPullRequests
+     * @param int $open
+     * @param int $closed
+     * @param int $total
      */
-    public function __construct(int $openPullRequests, int $totalPullRequests)
+    public function __construct(int $open, int $closed, int $total)
     {
-        $this->openPullRequests = $openPullRequests;
-        $this->totalPullRequests = $totalPullRequests;
+        $this->open = $open;
+        $this->closed = $closed;
+        $this->total = $total;
     }
 }

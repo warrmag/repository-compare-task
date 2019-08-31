@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
-use JMS\Serializer\Annotation as Serializer;
-
-class ComparisionData
+class ComparisonData
 {
     /**
      * @var array
@@ -13,7 +11,7 @@ class ComparisionData
     private $repositoryList;
 
     /**
-     * ComparisionData constructor.
+     * ComparisonData constructor.
      * @param array $repositoryList
      */
     public function __construct(array $repositoryList)
