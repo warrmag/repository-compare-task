@@ -50,8 +50,6 @@ class ComparisonController extends AbstractController
             ComparisonData::class,
             'json'
         );
-        dump($comparisonData);
-        die('dsad');
         $result = $this->comparisonService->create($comparisonData);
         return new Response($this->serializer->serialize($result, 'json'), Response::HTTP_ACCEPTED);
     }
