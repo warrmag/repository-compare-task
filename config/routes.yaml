@@ -1,0 +1,4 @@
+createComparasion:
+  path: /comparision
+  controller: App\Controller\ComparisonController::createComparison
+  methods: POST

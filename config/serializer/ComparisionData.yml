@@ -1,0 +1,6 @@
+App\DTO\ComparisionData:
+  exclusion_policy: NONE
+  properties:
+    repositoryList:
+      serialized_name: repository_list
+      type: array
