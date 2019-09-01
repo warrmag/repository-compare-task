@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace tests\Api\GitApi;
 
-use App\Api\Git\GitClientInterface;
-use App\Api\Git\GitException;
-use App\Api\Git\GitHub\GitHubClient;
-use App\DTO\RepositoryData;
+use App\Api\Git\GitHubClientInterface;
+use App\Api\Git\GitHubException;
+use App\Api\Git\GitHub\GitHubHubClient;
+use App\ValueObject\RepositoryData;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -16,7 +16,7 @@ class GitHubClientTest extends TestCase
 {
     const GITHUB_API = 'https://api.github.com/';
     const EXAMPLE_NAME = 'symfony/symfony-docs';
-    /** @var GitClientInterface */
+    /** @var GitHubClientInterface */
     private $gitHubClient;
 
     /** @var MockObject */
@@ -25,7 +25,7 @@ class GitHubClientTest extends TestCase
     public function setUp()
     {
         $this->parameterBagMock = $this->createMock(ParameterBagInterface::class);
-        $this->gitHubClient = new GitHubClient($this->parameterBagMock);
+        $this->gitHubClient = new GitHubHubClient($this->parameterBagMock);
     }
 
     public function testSuccessfulFetchRepository()
@@ -38,14 +38,14 @@ class GitHubClientTest extends TestCase
 
     public function testFetchFailedByConnection()
     {
-        $this->expectException(GitException::class);
+        $this->expectException(GitHubException::class);
         $this->parameterBagMock->method('get')->willReturn('http://bad-request');
         $this->gitHubClient->fetchRepository(self::EXAMPLE_NAME);
     }
 
     public function testRepositoryNotFound()
     {
-        $this->expectException(GitException::class);
+        $this->expectException(GitHubException::class);
         $this->expectExceptionCode(Response::HTTP_NOT_FOUND);
         $this->parameterBagMock->method('get')->willReturn(self::GITHUB_API);
         $this->gitHubClient->fetchRepository(md5(date('YmsHis')));

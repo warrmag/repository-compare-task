@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\ValueObject;
 
-class ComparisonData
+class CompareRequestData
 {
     /**
      * @var array
@@ -11,7 +11,6 @@ class ComparisonData
     private $repositoryList;
 
     /**
-     * ComparisonData constructor.
      * @param array $repositoryList
      */
     public function __construct(array $repositoryList)
@@ -20,7 +19,7 @@ class ComparisonData
     }
 
     /** @return array */
-    public function repositoryList(): array
+    public function getRepositoryList(): array
     {
         return $this->repositoryList;
     }

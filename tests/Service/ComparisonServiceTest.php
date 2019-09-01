@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace tests\Service\UnitTests;
 
-use App\Api\Git\GitHub\GitHubClient;
-use App\DTO\ComparisonData;
-use App\DTO\RepositoryData;
+use App\Api\Git\GitHub\GitHubHubClient;
+use App\ValueObject\ComparisonData;
+use App\ValueObject\RepositoryData;
 use App\Service\Comparison\ComparisonService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +23,7 @@ class ComparisonServiceTest extends TestCase
 
     public function setUp(): void
     {
-        $this->gitClientMock = $this->createMock(GitHubClient::class);
+        $this->gitClientMock = $this->createMock(GitHubHubClient::class);
         $this->comparisonService = new ComparisonService($this->gitClientMock);
     }
 

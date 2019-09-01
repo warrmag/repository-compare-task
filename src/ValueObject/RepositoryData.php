@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\ValueObject;
 
 class RepositoryData
 {
@@ -93,62 +93,82 @@ class RepositoryData
         $this->pullRequest = $pullRequest;
     }
 
-    /** @return string */
-    public function name(): string
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /** @return string */
-    public function stars(): string
+    /**
+     * @return string
+     */
+    public function getStars(): string
     {
         return $this->stars;
     }
 
-    /** @return int */
-    public function openIssues(): int
+    /**
+     * @return int
+     */
+    public function getOpenIssues(): int
     {
         return $this->openIssues;
     }
 
-    /** @return int */
-    public function watchers(): int
+    /**
+     * @return int
+     */
+    public function getWatchers(): int
     {
         return $this->watchers;
     }
 
-    /** @return string */
-    public function language(): string
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
     {
         return $this->language;
     }
 
-    /** @return int */
-    public function subscribers(): int
+    /**
+     * @return int
+     */
+    public function getSubscribers(): int
     {
         return $this->subscribers;
     }
 
-    /** @return string|null */
-    public function description(): ?string
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /** @return int */
-    public function forks(): int
+    /**
+     * @return int
+     */
+    public function getForks(): int
     {
         return $this->forks;
     }
 
-    /** @return \DateTime */
-    public function lastRelease(): \DateTime
+    /**
+     * @return \DateTime
+     */
+    public function getLastRelease(): \DateTime
     {
         return $this->lastRelease;
     }
 
-    /** @return PullRequestData */
-    public function pullRequest(): PullRequestData
+    /**
+     * @return PullRequestData
+     */
+    public function getPullRequest(): PullRequestData
     {
         return $this->pullRequest;
     }

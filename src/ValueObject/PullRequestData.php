@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\ValueObject;
 
 class PullRequestData
 {
@@ -25,5 +25,29 @@ class PullRequestData
         $this->open = $open;
         $this->closed = $closed;
         $this->total = $total;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOpenAmount(): int
+    {
+        return $this->open;
+    }
+
+    /**
+     * @return int
+     */
+    public function getClosedAmount(): int
+    {
+        return $this->closed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalAmount(): int
+    {
+        return $this->total;
     }
 }

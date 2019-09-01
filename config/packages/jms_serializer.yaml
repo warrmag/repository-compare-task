@@ -6,5 +6,5 @@ jms_serializer:
         auto_detection: true
         directories:
             app:
-                namespace_prefix: "App\\DTO"
+                namespace_prefix: "App\\ValueObject"
                 path: "%kernel.project_dir%/config/serializer"

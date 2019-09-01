@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\DTO\ComparisonData;
+use App\ValueObject\CompareRequestData;
 use App\Service\Comparison\ComparisonServiceInterface;
 use JMS\Serializer\SerializerInterface;
 use Swagger\Annotations as SWG;
@@ -44,13 +44,13 @@ class ComparisonController extends AbstractController
      */
     public function createRepositoriesComparison(Request $request): Response
     {
-        /** @var ComparisonData $comparisonData */
-        $comparisonData = $this->serializer->deserialize(
+        /** @var CompareRequestData $comparisonData */
+        $compareData = $this->serializer->deserialize(
             $request->getContent(),
-            ComparisonData::class,
+            CompareRequestData::class,
             'json'
         );
-        $result = $this->comparisonService->create($comparisonData);
+        $result = $this->comparisonService->create($compareData);
         return new Response($this->serializer->serialize($result, 'json'), Response::HTTP_ACCEPTED);
     }
 }
