@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace tests\Api\GitApi;
 
-use App\Api\Git\GitHubClientInterface;
-use App\Api\Git\GitHubException;
-use App\Api\Git\GitHub\GitHubHubClient;
-use App\ValueObject\RepositoryData;
+use App\Api\GitHubApi\GitHubApiClient;
+use App\Api\GitHubApi\GitHubApiClientInterface;
+use App\Api\GitHubApi\GitHubApiException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
 
 class GitHubClientTest extends TestCase
 {
     const GITHUB_API = 'https://api.github.com/';
     const EXAMPLE_NAME = 'symfony/symfony-docs';
-    /** @var GitHubClientInterface */
+    /** @var GitHubApiClientInterface */
     private $gitHubClient;
 
     /** @var MockObject */
@@ -25,27 +25,27 @@ class GitHubClientTest extends TestCase
     public function setUp()
     {
         $this->parameterBagMock = $this->createMock(ParameterBagInterface::class);
-        $this->gitHubClient = new GitHubHubClient($this->parameterBagMock);
+        $this->gitHubClient = new GitHubApiClient(HttpClient::create(), $this->parameterBagMock);
     }
 
     public function testSuccessfulFetchRepository()
     {
         $this->parameterBagMock->method('get')->willReturn(self::GITHUB_API);
         $result = $this->gitHubClient->fetchRepository(self::EXAMPLE_NAME);
-        $this->assertInstanceOf(RepositoryData::class, $result);
-        $this->assertNotEmpty($result->name());
+        $this->assertIsArray($result);
+        $this->assertNotEmpty($result);
     }
 
     public function testFetchFailedByConnection()
     {
-        $this->expectException(GitHubException::class);
+        $this->expectException(GitHubApiException::class);
         $this->parameterBagMock->method('get')->willReturn('http://bad-request');
         $this->gitHubClient->fetchRepository(self::EXAMPLE_NAME);
     }
 
     public function testRepositoryNotFound()
     {
-        $this->expectException(GitHubException::class);
+        $this->expectException(GitHubApiException::class);
         $this->expectExceptionCode(Response::HTTP_NOT_FOUND);
         $this->parameterBagMock->method('get')->willReturn(self::GITHUB_API);
         $this->gitHubClient->fetchRepository(md5(date('YmsHis')));

@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Api\GitHubApi;
 
-use App\ValueObject\PullRequestData;
-use App\ValueObject\RepositoryData;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,11 +68,7 @@ class GitHubApiClient implements GitHubApiClientInterface
 
         $options['query']['q'] = 'repo:' . $name . ' type:pr';
         $pullRequests['total'] = $this->getArrayResponse(self::SEARCH_PART . '/' . self::ISSUE_PART, $options);
-//        return new PullRequestData(
-//            $pullRequests['open']['total_count'],
-//            $pullRequests['closed']['total_count'],
-//            $pullRequests['total']['total_count']
-//        );
+
         return [
             'open_pull_requests' =>  $pullRequests['open']['total_count'],
             'closed_pull_requests' => $pullRequests['closed']['total_count'],
@@ -109,8 +103,8 @@ class GitHubApiClient implements GitHubApiClientInterface
     {
         $exploded = explode(self::GITHUB_URL, $url);
         $actionPart = end($exploded);
-        $irrelevantData = preg_replace('/([\w]+\/[\w]+)/','', $actionPart);
-        $name = str_replace($irrelevantData,'',$actionPart);
+        $irrelevantData = preg_replace('/([\w]+\/[\w]+)/', '', $actionPart);
+        $name = str_replace($irrelevantData, '', $actionPart);
         return $name;
     }
 }

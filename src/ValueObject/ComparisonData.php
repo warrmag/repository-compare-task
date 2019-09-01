@@ -23,4 +23,9 @@ class ComparisonData
     {
         $this->comparedPropertyList[$propertyName] = $propertyData;
     }
+
+    public function getProperty(string $key): ComparedPropertyData
+    {
+        return $this->comparedPropertyList[$key];
+    }
 }
