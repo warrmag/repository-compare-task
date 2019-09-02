@@ -5,7 +5,6 @@ namespace App\Api\GitHubApi;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -89,7 +88,7 @@ class GitHubApiClient implements GitHubApiClientInterface
             );
             return $response->toArray();
         } catch (ClientExceptionInterface $exception) {
-            throw new GitHubApiException('Cannot find requested repository', Response::HTTP_NOT_FOUND);
+            throw new GitHubApiException($exception->getMessage(), $exception->getCode());
         } catch (ExceptionInterface $exception) {
             throw new GitHubApiException("Whoops, something went wrong", $exception->getCode());
         }
