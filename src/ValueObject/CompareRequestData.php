@@ -18,7 +18,9 @@ class CompareRequestData
         $this->repositoryList = $repositoryList;
     }
 
-    /** @return array */
+    /**
+     * @return array
+     */
     public function getRepositoryList(): array
     {
         return $this->repositoryList;

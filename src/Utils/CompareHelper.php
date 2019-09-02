@@ -20,7 +20,7 @@ class CompareHelper implements HelperInterface
 
         if (is_int($propertyA['value'])) {
             $advantage = $this->compareIntegers($propertyA, $propertyB);
-        } elseif ((bool)strtotime($propertyA['value'])) {
+        } elseif ($propertyA['value'] !== null && (bool)strtotime($propertyA['value'])) {
             $advantage = $this->compareDates($propertyA, $propertyB);
             return new ComparedPropertyData(
                 $advantage['name'] . ' has fresh update with date: ' . $name,
