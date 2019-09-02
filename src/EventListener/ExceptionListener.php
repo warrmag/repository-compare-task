@@ -11,7 +11,10 @@ class ExceptionListener
 {
     const MESSAGE = 'Exception thrown without message';
 
-    public function onKernelException(ExceptionEvent $event)
+    /**
+     * @param ExceptionEvent $event
+     */
+    public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getException();
 
@@ -33,7 +36,5 @@ class ExceptionListener
         }
 
         $event->setResponse(new JsonResponse($responseMessage, $responseMessage['code']));
-
-        return $responseMessage;
     }
 }

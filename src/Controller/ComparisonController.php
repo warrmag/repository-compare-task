@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\DTO\ComparisionData;
-use App\Service\Comparision\ComparisionServiceInterface;
+use App\ValueObject\CompareRequestData;
+use App\Service\Comparison\ComparisonServiceInterface;
 use JMS\Serializer\SerializerInterface;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,18 +16,18 @@ class ComparisonController extends AbstractController
     /** @var SerializerInterface */
     private $serializer;
 
-    /** @var ComparisionServiceInterface */
-    private $comparisionService;
+    /** @var ComparisonServiceInterface */
+    private $comparisonService;
 
-    public function __construct(SerializerInterface $serializer, ComparisionServiceInterface $comparisionService)
+    public function __construct(SerializerInterface $serializer, ComparisonServiceInterface $comparisionService)
     {
         $this->serializer = $serializer;
-        $this->comparisionService = $comparisionService;
+        $this->comparisonService = $comparisionService;
     }
 
     /**
      * @SWG\Parameter(
-     *     name="List of repository",in="body",
+     *     name="List of repositories to compare",in="body",
      *     @SWG\Schema(
      *          type="object",
      *          @SWG\Property(
@@ -43,15 +42,15 @@ class ComparisonController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function createComparison(Request $request): Response
+    public function createRepositoriesComparison(Request $request): Response
     {
-        /** @var ComparisionData $comparisonData */
-        $comparisonData = $this->serializer->deserialize(
+        /** @var CompareRequestData $comparisonData */
+        $compareData = $this->serializer->deserialize(
             $request->getContent(),
-            ComparisionData::class,
+            CompareRequestData::class,
             'json'
         );
-        $result = $this->comparisionService->create($comparisonData);
+        $result = $this->comparisonService->create($compareData);
         return new Response($this->serializer->serialize($result, 'json'), Response::HTTP_ACCEPTED);
     }
 }

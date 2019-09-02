@@ -1,4 +1,3 @@
-createComparasion:
-  path: /comparision
-  controller: App\Controller\ComparisonController::createComparison
-  methods: POST
+comparasion:
+  resource: "routes/comparisons.yaml"
+  prefix: "/comparision"

@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\ValueObject;
 
-use JMS\Serializer\Annotation as Serializer;
-
-class ComparisionData
+class CompareRequestData
 {
     /**
      * @var array
@@ -13,7 +11,6 @@ class ComparisionData
     private $repositoryList;
 
     /**
-     * ComparisionData constructor.
      * @param array $repositoryList
      */
     public function __construct(array $repositoryList)
@@ -22,7 +19,7 @@ class ComparisionData
     }
 
     /** @return array */
-    public function repositoryList(): array
+    public function getRepositoryList(): array
     {
         return $this->repositoryList;
     }

@@ -1,6 +1,5 @@
-App\DTO\ComparisionData:
+App\ValueObject\CompareRequestData:
   exclusion_policy: NONE
   properties:
     repositoryList:
-      serialized_name: repository_list
       type: array

@@ -1,0 +1,4 @@
+createRepositoriesComparison:
+  path: /repositories
+  controller: App\Controller\ComparisonController::createRepositoriesComparison
+  methods: POST

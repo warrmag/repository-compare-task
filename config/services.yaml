@@ -1,5 +1,7 @@
 parameters:
     github_api: 'https://api.github.com/'
+    required_items_amount: 2
+    compare_headers: ["stargazers_count", "open_issues", "watchers", "subscribers_count", "forks", "updated_at", "language", "description", "open_pull_requests", "closed_pull_requests", "total_pull_requests"]
 
 services:
     _defaults:
@@ -8,7 +10,7 @@ services:
 
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,DTO,Tests,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Entity,ValueObject,Tests,Kernel.php}'
 
     App\Controller\:
         resource: '../src/Controller'
