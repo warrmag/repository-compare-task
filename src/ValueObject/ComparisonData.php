@@ -19,13 +19,25 @@ class ComparisonData
         $this->comparedPropertyList = [];
     }
 
+    /**
+     * @param string $propertyName
+     * @param ComparedPropertyData $propertyData
+     */
     public function addProperty(string $propertyName, ComparedPropertyData $propertyData): void
     {
         $this->comparedPropertyList[$propertyName] = $propertyData;
     }
 
+    /**
+     * @param string $key
+     * @return ComparedPropertyData
+     * @throws \Exception
+     */
     public function getProperty(string $key): ComparedPropertyData
     {
+        if (!isset($this->comparedPropertyList[$key])) {
+            throw new \Exception('Property is not set');
+        }
         return $this->comparedPropertyList[$key];
     }
 }

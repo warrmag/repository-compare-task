@@ -16,10 +16,15 @@ class GitHubClientTest extends TestCase
 {
     const GITHUB_API = 'https://api.github.com/';
     const EXAMPLE_NAME = 'symfony/symfony-docs';
-    /** @var GitHubApiClientInterface */
+
+    /**
+     * @var GitHubApiClientInterface
+     */
     private $gitHubClient;
 
-    /** @var MockObject */
+    /**
+     * @var MockObject
+     */
     private $parameterBagMock;
 
     public function setUp()
@@ -32,7 +37,7 @@ class GitHubClientTest extends TestCase
     {
         $this->parameterBagMock->method('get')->willReturn(self::GITHUB_API);
         $result = $this->gitHubClient->fetchRepository(self::EXAMPLE_NAME);
-        $this->assertIsArray($result);
+        $this->assertIsArray($result, 'D you have internet connection?');
         $this->assertNotEmpty($result);
     }
 
